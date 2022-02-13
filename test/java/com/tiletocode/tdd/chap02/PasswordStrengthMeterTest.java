@@ -44,4 +44,21 @@ public class PasswordStrengthMeterTest {
         assertStrength("qwertasdf", PasswordStrength.WEAK);
     }
 
+    @Test
+    @DisplayName("숫자 포함 조건만 충족")
+    void weak_2() {
+        assertStrength("1234", PasswordStrength.WEAK);
+    }
+
+    @Test
+    @DisplayName("대문자 포함 조건만 충족")
+    void weak_3() {
+        assertStrength("QWERTY", PasswordStrength.WEAK);
+    }
+
+    @Test
+    @DisplayName("입력값이 null일 경우")
+    void inputNull() {
+        assertStrength(null, PasswordStrength.INVALID);
+    }
 }
