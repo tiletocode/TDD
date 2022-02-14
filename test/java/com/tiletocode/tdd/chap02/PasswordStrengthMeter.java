@@ -2,7 +2,7 @@ package com.tiletocode.tdd.chap02;
 
 public class PasswordStrengthMeter {
     public PasswordStrength meter(String s) {
-        if (s == null)
+        if (s == null || s.isEmpty())
             return PasswordStrength.INVALID;
 
         boolean lengthEnough = s.length() >= 8;
@@ -14,6 +14,8 @@ public class PasswordStrengthMeter {
         if(!lengthEnough && containsNum && !containsUpp)
             return PasswordStrength.WEAK;
         if(!lengthEnough && !containsNum && containsUpp)
+            return PasswordStrength.WEAK;
+        if(!lengthEnough && !containsNum && !containsUpp)
             return PasswordStrength.WEAK;
         if (!lengthEnough)
             return PasswordStrength.NORMAL;

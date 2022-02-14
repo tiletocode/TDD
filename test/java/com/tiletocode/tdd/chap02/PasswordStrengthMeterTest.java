@@ -57,8 +57,20 @@ public class PasswordStrengthMeterTest {
     }
 
     @Test
+    @DisplayName("아무 조건도 충족하지 않은 경우")
+    void weak_4() {
+        assertStrength("abc", PasswordStrength.WEAK);
+    }
+
+    @Test
     @DisplayName("입력값이 null일 경우")
     void inputNull() {
         assertStrength(null, PasswordStrength.INVALID);
+    }
+
+    @Test
+    @DisplayName("입력값이 공백일 경우")
+    void inputBlank() {
+        assertStrength("", PasswordStrength.INVALID);
     }
 }
