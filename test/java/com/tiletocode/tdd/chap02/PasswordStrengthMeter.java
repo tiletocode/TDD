@@ -5,25 +5,24 @@ public class PasswordStrengthMeter {
         if (s == null || s.isEmpty())
             return PasswordStrength.INVALID;
 
-        boolean lengthEnough = s.length() >= 8;
-        boolean containsNum = checkNumber(s);
-        boolean containsUpp = checkUppercase(s);
+        int securityLevel = getSecurityLevel(s);
+        if(securityLevel <= 1)
+            return PasswordStrength.WEAK;
+        if(securityLevel == 2)
+            return PasswordStrength.NORMAL;
 
-        if(lengthEnough && !containsNum && !containsUpp)
-            return PasswordStrength.WEAK;
-        if(!lengthEnough && containsNum && !containsUpp)
-            return PasswordStrength.WEAK;
-        if(!lengthEnough && !containsNum && containsUpp)
-            return PasswordStrength.WEAK;
-        if(!lengthEnough && !containsNum && !containsUpp)
-            return PasswordStrength.WEAK;
-        if (!lengthEnough)
-            return PasswordStrength.NORMAL;
-        if (!containsNum)
-            return PasswordStrength.NORMAL;
-        if (!containsUpp)
-            return PasswordStrength.NORMAL;
         return PasswordStrength.STRONG;
+    }
+
+    private int getSecurityLevel(String s) {
+        int count = 0;
+        if(s.length() >= 8)
+            count++;
+        if(checkNumber(s))
+            count++;
+        if(checkUppercase(s))
+            count++;
+        return count;
     }
 
     private boolean checkNumber(String s) {
